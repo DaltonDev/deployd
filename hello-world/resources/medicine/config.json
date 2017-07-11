@@ -1,0 +1,61 @@
+{
+	"type": "Collection",
+	"properties": {
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 0
+		},
+		"totalAmount": {
+			"name": "totalAmount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "totalAmount",
+			"order": 1
+		},
+		"currentAmount": {
+			"name": "currentAmount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "currentAmount",
+			"order": 2
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "description",
+			"order": 3
+		},
+		"frequency": {
+			"name": "frequency",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "frequency",
+			"order": 4
+		},
+		"reminder": {
+			"name": "reminder",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "reminder",
+			"order": 5
+		},
+		"amountPerDay": {
+			"name": "amountPerDay",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "amountPerDay",
+			"order": 6
+		}
+	}
+}
