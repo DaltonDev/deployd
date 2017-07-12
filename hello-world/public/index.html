@@ -22,8 +22,8 @@
     </div>
     <!-- Tabs -->
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-      <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
-      <a href="#fixed-tab-2" class="mdl-layout__tab">Tab 2</a>
+      <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Overview</a>
+      <a href="#fixed-tab-2" class="mdl-layout__tab">Add new</a>
       <a href="#fixed-tab-3" class="mdl-layout__tab">Tab 3</a>
     </div>
   </header>
@@ -54,7 +54,7 @@
           </div>
           <!--totalAmount-->
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="amounts">
+            <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="amounts">
             <label class="mdl-textfield__label" for="amounts">Amount</label>
             <span class="mdl-textfield__error">Input is not a number!</span>
           </div>
@@ -72,7 +72,7 @@
           </div> -->
           <!--Amount per day-->
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="perday">
+            <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="perday">
             <label class="mdl-textfield__label" for="perday">Amount per day</label>
             <span class="mdl-textfield__error">Input is not a number!</span>
           </div>

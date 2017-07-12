@@ -9,12 +9,12 @@
 			"id": "name",
 			"order": 0
 		},
-		"totalAmount": {
-			"name": "totalAmount",
-			"type": "number",
-			"typeLabel": "number",
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
 			"required": false,
-			"id": "totalAmount",
+			"id": "description",
 			"order": 1
 		},
 		"amount": {
@@ -25,20 +25,20 @@
 			"id": "amount",
 			"order": 2
 		},
-		"description": {
-			"name": "description",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "description",
-			"order": 3
-		},
 		"amountPerDay": {
 			"name": "amountPerDay",
 			"type": "number",
 			"typeLabel": "number",
-			"required": false,
+			"required": true,
 			"id": "amountPerDay",
+			"order": 3
+		},
+		"totalAmount": {
+			"name": "totalAmount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "totalAmount",
 			"order": 4
 		}
 	}

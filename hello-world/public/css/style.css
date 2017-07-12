@@ -25,6 +25,9 @@ body{
   left: 5px;
   bottom: 0;
 }
+#description-short{
+  overflow: hidden;
+}
 .page-content.tab-two{
   text-align: center;
 }

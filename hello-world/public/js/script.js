@@ -13,18 +13,20 @@ function showError(error) {
         alert(message);
 }
 
+
+
 $(document).ready(function() {
 
   $('#medicine-form').submit(function() {
       //Get the data from the form
       var named = $('#named').val();
       var descriptions  = $('#descriptions').val();
-      var amounts = $('#amounts').val();
-      var perday = $('#perday').val();
-      var totalAmounts  = $('#current').val();
+      var amounts = parseInt($('#amounts').val());
+      var perday = parseInt($('#perday').val());
+      //Placeholder until update function works
+      var totalAmounts  = amounts;
       // var reminder = $('#reminder').val();
       //var frequency  = $('#frequency').val();
-
       dpd.medicine.post({
           "name": named,
           "description": descriptions,
@@ -50,22 +52,21 @@ $(document).ready(function() {
   });
 
   loadMedicines();
-
     function addMedicine(medicine) {
 
             $('<li class="name mdl-list__item mdl-list__item--three-line">')
             .append('<span class="mdl-list__item-primary-content">'+
             '<div class="amount">'+
-            '<span class="current-amount">'+medicine.currentAmount+'</span>'+
+            '<span class="current-amount">'+medicine.amountPerDay+'</span>'+
             '<span class="total-amount">'+"/"+medicine.totalAmount+'</span>'+
             '</div>'+
             '<i class="material-icons mdl-list__item-avatar">'+
             '<i class="material-icons pill-icon">pie_chart</i></i>'+
             '<span id="name">' + medicine.name + '</span>'+
-            '<span id="description" class="mdl-list__item-text-body">' + medicine.description + '</span>')
+            '<span id="description-short" class="mdl-list__item-text-body">' + medicine.description + '</span>')
             .append('</span>')
             .append('<span class="mdl-list__item-secondary-content">'+
-            '<a class="mdl-list__item-secondary-action" href="#"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
+            '<a class="mdl-list__item-secondary-action" href="/medicine/'+medicine.id+'"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
             .append('</span>')
             .append('</li>')
             .appendTo('#medicines');
@@ -79,6 +80,9 @@ $(document).ready(function() {
         });
     });
 }
-
-
+function loadMoreInfo(){
+  dpd.medicine.get(medicine.id, function (result) {
+console.log(result);
+});
+}
 });
