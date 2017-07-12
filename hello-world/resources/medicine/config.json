@@ -13,16 +13,16 @@
 			"name": "totalAmount",
 			"type": "number",
 			"typeLabel": "number",
-			"required": true,
+			"required": false,
 			"id": "totalAmount",
 			"order": 1
 		},
-		"currentAmount": {
-			"name": "currentAmount",
+		"amount": {
+			"name": "amount",
 			"type": "number",
 			"typeLabel": "number",
 			"required": true,
-			"id": "currentAmount",
+			"id": "amount",
 			"order": 2
 		},
 		"description": {
@@ -33,29 +33,13 @@
 			"id": "description",
 			"order": 3
 		},
-		"frequency": {
-			"name": "frequency",
-			"type": "number",
-			"typeLabel": "number",
-			"required": false,
-			"id": "frequency",
-			"order": 4
-		},
-		"reminder": {
-			"name": "reminder",
-			"type": "number",
-			"typeLabel": "number",
-			"required": false,
-			"id": "reminder",
-			"order": 5
-		},
 		"amountPerDay": {
 			"name": "amountPerDay",
 			"type": "number",
 			"typeLabel": "number",
 			"required": false,
 			"id": "amountPerDay",
-			"order": 6
+			"order": 4
 		}
 	}
 }

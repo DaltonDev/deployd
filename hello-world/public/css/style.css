@@ -1,3 +1,9 @@
+body{
+  /*background: #F0F2F0;
+  background: -webkit-linear-gradient(to right, #000C40, #F0F2F0);
+  background: linear-gradient(to right, #000C40, #F0F2F0);
+  */
+}
 .pill-icon{
   text-align: center;
   width: 40px;
@@ -5,8 +11,36 @@
   position: relative;
   font-size: 28px;
 }
+.arrow-icon{
+  font-size: 56px;
+}
 .mdl-list__item--three-line{
   width: 95%;
   margin: 10px auto;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  position: relative;
+}
+.amount{
+  position: absolute;
+  left: 5px;
+  bottom: 0;
+}
+.page-content.tab-two{
+  text-align: center;
+}
+.mdl-textfield__label{
+  font-size: 20px;
+}
+.mdl-textfield__input{
+  font-size: 25px;
+}
+.reminder .mdl-switch{
+  width: auto;
+  float: right;
+}
+.mdl-mini-footer{
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

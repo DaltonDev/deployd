@@ -1,88 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" src="dpd.js"></script>
   <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<!-- Material Design icon font -->
+  <!-- Material Design icon font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-red.min.css" />
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-      <div class="mdl-layout__header-row">
-        <!-- Title -->
-        <span class="mdl-layout-title">Title</span>
-        <!-- Add spacer, to align navigation to the right -->
-        <div class="mdl-layout-spacer"></div>
-        <!-- Navigation. We hide it in small screens. -->
-        <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
-      </div>
-    </header>
 
-  <ul id="" class="demo-list-three mdl-list">
-      <li class="mdl-list__item mdl-list__item--three-line">
-        <span class="mdl-list__item-primary-content">
-          <i class="material-icons mdl-list__item-avatar"><i class="material-icons pill-icon">pie_chart</i></i>
-          <span id="name">Bryan Cranston</span>
-          <span id="description" class="mdl-list__item-text-body">
-            Bryan Cranston played the role of Walter in Breaking Bad. He is also known
-            for playing Hal in Malcom in the Middle.
-          </span>
-        </span>
-        <span class="mdl-list__item-secondary-content">
-          <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-        </span>
-      </li>
-      <li class="mdl-list__item mdl-list__item--three-line">
-        <span class="mdl-list__item-primary-content">
-          <i class="material-icons mdl-list__item-avatar"><i class="material-icons pill-icon">pie_chart</i></i>
-          <span id="name">Bryan Cranston</span>
-          <span id="description" class="mdl-list__item-text-body">
-            Bryan Cranston played the role of Walter in Breaking Bad. He is also known
-            for playing Hal in Malcom in the Middle.
-          </span>
-        </span>
-        <span class="mdl-list__item-secondary-content">
-          <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-        </span>
-      </li>
-      <li class="mdl-list__item mdl-list__item--three-line">
-        <span class="mdl-list__item-primary-content">
-          <i class="material-icons  mdl-list__item-avatar"><i class="material-icons pill-icon">pie_chart</i></i>
-          <span>Aaron Paul</span>
-          <span class="mdl-list__item-text-body">
-            Aaron Paul played the role of Jesse in Breaking Bad. He also featured in
-            the "Need For Speed" Movie.
-          </span>
-        </span>
-        <span class="mdl-list__item-secondary-content">
-          <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-        </span>
-      </li>
-      <li class="mdl-list__item mdl-list__item--three-line">
-        <span class="mdl-list__item-primary-content">
-          <i class="material-icons  mdl-list__item-avatar"><i class="material-icons pill-icon">pie_chart</i></i>
-          <span>Bob Odenkirk</span>
-          <span class="mdl-list__item-text-body">
-            Bob Odinkrik played the role of Saul in Breaking Bad. Due to public fondness for the
-            character, Bob stars in his own show now, called "Better Call Saul".
-          </span>
-        </span>
-        <span class="mdl-list__item-secondary-content">
-          <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-        </span>
-      </li>
-    </ul>
-    <ul id="medicines" class="medicines demo-list-three mdl-list"></ul>
+  <!-- Simple header with fixed tabs. -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+  mdl-layout--fixed-tabs">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Title</span>
     </div>
-    <script type="text/javascript" src="js/script.js"></script>
+    <!-- Tabs -->
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+      <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
+      <a href="#fixed-tab-2" class="mdl-layout__tab">Tab 2</a>
+      <a href="#fixed-tab-3" class="mdl-layout__tab">Tab 3</a>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Title</span>
+  </div>
+  <main class="mdl-layout__content">
+    <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+      <div class="page-content">
+        <!--First tab-->
+        <ul id="medicines" class="medicines demo-list-three mdl-list"></ul>
+      </div>
+    </section>
+    <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+      <div class="page-content tab-two">
+        <!-- Second tab -->
+        <h4>Add new</h4>
+        <form id="medicine-form">
+          <!--Name-->
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="named">
+            <label class="mdl-textfield__label" for="named">Name</label>
+          </div>
+          <!--description-->
+          <div class="mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" rows= "3" id="descriptions" ></textarea>
+            <label class="mdl-textfield__label" for="descriptions">Description</label>
+          </div>
+          <!--totalAmount-->
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="amounts">
+            <label class="mdl-textfield__label" for="amounts">Amount</label>
+            <span class="mdl-textfield__error">Input is not a number!</span>
+          </div>
+          <!--Amount per day-->
+          <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="frequency">
+            <label class="mdl-textfield__label" for="frequency">Frequency</label>
+            <span class="mdl-textfield__error">Input is not a number!</span>
+          </div> -->
+          <!--currentAmount-->
+          <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="totalamount">
+            <label class="mdl-textfield__label" for="totalamount">Current Amount</label>
+            <span class="mdl-textfield__error">Input is not a number!</span>
+          </div> -->
+          <!--Amount per day-->
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="perday">
+            <label class="mdl-textfield__label" for="perday">Amount per day</label>
+            <span class="mdl-textfield__error">Input is not a number!</span>
+          </div>
+          <!--Reminder-->
+          <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label reminder">
+            <span class="mdl-textfield__label">Reminder?</span>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="reminder">
+              <input type="checkbox" id="reminder" class="mdl-switch__input" checked>
+            </label>
+          </div> -->
+          <div class="form-element">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+            Button
+          </button>
+        </div>
+        </form>
+
+      </div>
+    </section>
+    <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+      <div class="page-content"><!-- Your content goes here --></div>
+    </section>
+  </main>
+
+
+  <footer class="mdl-mini-footer">
+    <div class="mdl-mini-footer__left-section">
+      <ul class="mdl-mini-footer__link-list">
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Privacy & Terms</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>
