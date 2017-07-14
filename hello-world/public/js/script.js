@@ -51,9 +51,10 @@ $(document).ready(function() {
       return false;
   });
 
+
+
   loadMedicines();
     function addMedicine(medicine) {
-
             $('<li class="name mdl-list__item mdl-list__item--three-line">')
             .append('<span class="mdl-list__item-primary-content">'+
             '<div class="amount">'+
@@ -66,10 +67,14 @@ $(document).ready(function() {
             '<span id="description-short" class="mdl-list__item-text-body">' + medicine.description + '</span>')
             .append('</span>')
             .append('<span class="mdl-list__item-secondary-content">'+
-            '<a class="mdl-list__item-secondary-action" href="/medicine/'+medicine.id+'"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
+            '<a class="mdl-list__item-secondary-action"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
             .append('</span>')
             .append('</li>')
             .appendTo('#medicines');
+            //console.log(medicine.id);
+
+            // var test = medicine.id;
+            //   loadMoreInfo(test);
     }
 
     function loadMedicines() {
@@ -80,9 +85,13 @@ $(document).ready(function() {
         });
     });
 }
-function loadMoreInfo(){
-  dpd.medicine.get(medicine.id, function (result) {
-console.log(result);
+
+
+
+<!-- -->
 });
-}
-});
+
+//
+// function loadMoreInfo(test){
+//   console.log(test);
+// }
