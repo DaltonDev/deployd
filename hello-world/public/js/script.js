@@ -67,7 +67,7 @@ $(document).ready(function() {
             '<span id="description-short" class="mdl-list__item-text-body">' + medicine.description + '</span>')
             .append('</span>')
             .append('<span class="mdl-list__item-secondary-content">'+
-            '<a class="mdl-list__item-secondary-action"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
+            '<a class="mdl-list__item-secondary-action" onclick="loadMoreInfo()"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
             .append('</span>')
             .append('</li>')
             .appendTo('#medicines');
@@ -95,3 +95,22 @@ $(document).ready(function() {
 // function loadMoreInfo(test){
 //   console.log(test);
 // }
+
+var xhr = new XMLHttpRequest();
+var cObj;
+
+function loadMoreInfo(){
+  var path="http://localhost:2403/medicine/";
+
+  xhr.open('GET', path, true);
+  xhr.responseType = 'text';
+  xhr.send();
+}
+xhr.onload = function() {
+    if (xhr.status === 200){
+        cObj = JSON.parse(xhr.responseText);
+        console.log(cObj);
+
+        document.getElementById('medicine').innerHTML = cObj.Object.name;
+    } //end if
+};
