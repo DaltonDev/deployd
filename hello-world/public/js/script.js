@@ -27,7 +27,7 @@ $(document).ready(function() {
       var totalAmounts  = amounts;
       // var reminder = $('#reminder').val();
       //var frequency  = $('#frequency').val();
-      dpd.medicine.post({
+      dpd.medicines.post({
           "name": named,
           "description": descriptions,
           "totalAmount": totalAmounts,
@@ -51,66 +51,81 @@ $(document).ready(function() {
       return false;
   });
 
-
-
   loadMedicines();
-    function addMedicine(medicine) {
+
+    function addMedicines(medicines) {
             $('<li class="name mdl-list__item mdl-list__item--three-line">')
             .append('<span class="mdl-list__item-primary-content">'+
             '<div class="amount">'+
-            '<span class="current-amount">'+medicine.amountPerDay+'</span>'+
-            '<span class="total-amount">'+"/"+medicine.totalAmount+'</span>'+
+            '<span class="current-amount">'+medicines.amountPerDay+'</span>'+
+            '<span class="total-amount">'+"/"+medicines.totalAmount+'</span>'+
             '</div>'+
             '<i class="material-icons mdl-list__item-avatar">'+
             '<i class="material-icons pill-icon">pie_chart</i></i>'+
-            '<span id="name">' + medicine.name + '</span>'+
-            '<span id="description-short" class="mdl-list__item-text-body">' + medicine.description + '</span>')
+            '<span id="name">' + medicines.name + '</span>'+
+            '<span id="description-short" class="mdl-list__item-text-body">' + medicines.description + '</span>')
             .append('</span>')
             .append('<span class="mdl-list__item-secondary-content">'+
-            '<a class="mdl-list__item-secondary-action" onclick="loadMoreInfo()"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
+            '<a class="mdl-list__item-secondary-action" id="'+medicines.id+'" onclick="loadMoreInfo(this.id)" href="medicines/'+medicines.id+'"  target="iframen"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
             .append('</span>')
             .append('</li>')
             .appendTo('#medicines');
             //console.log(medicine.id);
-
-            // var test = medicine.id;
-            //   loadMoreInfo(test);
     }
 
     function loadMedicines() {
-    dpd.medicine.get(function(medicines, error) { //Use dpd.js to access the API
+    dpd.medicines.get(function(medicines, error) { //Use dpd.js to access the API
         $('#medicines').empty(); //Empty the list
-        medicines.forEach(function(medicine) { //Loop through the result
-            addMedicine(medicine); //Add it to the DOM.
+        medicines.forEach(function(name) { //Loop through the result
+            addMedicines(name); //Add it to the DOM.
         });
     });
 }
 
 
-
+//onclick="loadMoreInfo()"
 <!-- -->
 });
 
-//
-// function loadMoreInfo(test){
-//   console.log(test);
-// }
-
-var xhr = new XMLHttpRequest();
-var cObj;
-
-function loadMoreInfo(){
-  var path="http://localhost:2403/medicine/";
-
-  xhr.open('GET', path, true);
-  xhr.responseType = 'text';
-  xhr.send();
+function loadMoreInfo2(result){
+  console.log(result);
 }
-xhr.onload = function() {
-    if (xhr.status === 200){
-        cObj = JSON.parse(xhr.responseText);
-        console.log(cObj);
 
-        document.getElementById('medicine').innerHTML = cObj.Object.name;
-    } //end if
-};
+function loadMoreInfo(result){
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', "/../medicines/"+result, true);
+  xhr.send();
+
+  xhr.onreadystatechange = processRequest;
+
+
+ function processRequest(e) {
+   if (xhr.readyState == 4 && xhr.status == 200) {
+     var response = JSON.parse(xhr.responseText);
+      console.log(response.name);
+      console.log(response.id);
+      $('<li class="name mdl-list__item mdl-list__item--three-line">')
+      .append('<span class="mdl-list__item-primary-content">'+
+      '<div class="amount hidden">'+
+      '<span class="current-amount">'+response.amountPerDay+'</span>'+
+      '<span class="total-amount">'+"/"+response.totalAmount+'</span>'+
+      '</div>'+
+      '<i class="material-icons mdl-list__item-avatar">'+
+      '<i class="material-icons pill-icon">pie_chart</i></i>'+
+      '<span id="name">' + response.name + '</span>'+
+      '<span id="description-short" class="mdl-list__item-text-body">' + response.description + '</span>')
+      .append('</span>')
+      .append('</li>')
+      .appendTo('#medicineinfo');
+   }
+}
+}
+
+
+
+
+// function loadMoreInfo(test){
+//   dpd.medicines.get(test, function (result) {
+//  console.log(result);
+// });
+//  }
