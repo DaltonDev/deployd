@@ -13,6 +13,18 @@ body{
 }
 .arrow-icon{
   font-size: 56px;
+  color: #757575;
+}
+.arrow-icon-back{
+  font-size: 45px;
+  float: left;
+  color: #757575;
+}
+button.delete,
+button.update{
+  float: right;
+  height: 45px;
+  margin: 0 5px;
 }
 .mdl-list__item--three-line{
   width: 95%;
@@ -40,6 +52,63 @@ body{
 .reminder .mdl-switch{
   width: auto;
   float: right;
+}
+.medicines{
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  top: 0;
+  width: 100%;
+  transition: left 500ms ease-in-out;
+}
+.medicineinfo{
+  position: fixed;
+  z-index: 20;
+  left: 100%;
+  width: 100%;
+  transition: left 500ms ease-in-out;
+}
+.slide_in{
+    left: 0%;
+    transition: left 500ms ease-in-out;
+}
+.slide_out{
+  left: -100%;
+  transition: left 500ms ease-in-out;
+}
+.demo-card-square.mdl-card {
+  width: 95%;
+  max-width: 380px;
+  margin: auto;
+  height: auto;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  /*background: url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;*/
+  background: rgb(63,81,181);
+  background:url('images/chemistry.svg') 5% 45% no-repeat rgb(63,81,181);
+  background-size: 32%;
+  height: 145px;
+  position: relative;
+}
+.mdl-card__title .header_text{
+  position: absolute;
+  right: 5%;
+  bottom: 15%;
+}
+.mdl-card__actions.mdl-card--border{
+  overflow-x: auto;
+}
+.mdl-list__item--three-line .mdl-list__item-primary-content{
+  height: 60px;
+}
+.mdl-data-table__cell--non-numeric.mdl-data-table__cell--non-numeric{
+  text-align: center;
+}
+.mdl-card__supporting-text{
+  height: auto;
+  max-height: 100px;
+  overflow-y: scroll;
 }
 .mdl-mini-footer{
   position: relative;

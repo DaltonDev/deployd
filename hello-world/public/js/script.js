@@ -35,10 +35,10 @@ $(document).ready(function() {
           //"frequency": frequency,
           // "reminder": reminder,
           "amountPerDay": perday
-        }, function(medicine, error) {
+        }, function(medicines, error) {
                 if (error) return showError(error);
       //Clear the form elements
-      addMedicine(medicine);
+      addMedicines(medicines);
       $('#named').val('');
       $('#descriptions').val('');
       $('#amounts').val('');
@@ -66,7 +66,7 @@ $(document).ready(function() {
             '<span id="description-short" class="mdl-list__item-text-body">' + medicines.description + '</span>')
             .append('</span>')
             .append('<span class="mdl-list__item-secondary-content">'+
-            '<a class="mdl-list__item-secondary-action" id="'+medicines.id+'" onclick="loadMoreInfo(this.id)" href="medicines/'+medicines.id+'"  target="iframen"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
+            '<a class="mdl-list__item-secondary-action active" id="'+medicines.id+'" onclick="loadMoreInfo(this.id)" href="medicines/'+medicines.id+'"  target="iframen"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
             .append('</span>')
             .append('</li>')
             .appendTo('#medicines');
@@ -82,16 +82,20 @@ $(document).ready(function() {
     });
 }
 
-
 //onclick="loadMoreInfo()"
 <!-- -->
 });
 
-function loadMoreInfo2(result){
-  console.log(result);
+function reset(result){
+  $( "#medicineinfo" ).toggleClass( "slide_in");
+  $( "#medicines" ).toggleClass( "slide_out");
 }
 
 function loadMoreInfo(result){
+    $('#medicineinfo').empty();
+$( "#medicineinfo" ).toggleClass( "slide_in");
+$( "#medicines" ).toggleClass( "slide_out");
+
   var xhr = new XMLHttpRequest();
   xhr.open('GET', "/../medicines/"+result, true);
   xhr.send();
@@ -104,24 +108,73 @@ function loadMoreInfo(result){
      var response = JSON.parse(xhr.responseText);
       console.log(response.name);
       console.log(response.id);
-      $('<li class="name mdl-list__item mdl-list__item--three-line">')
-      .append('<span class="mdl-list__item-primary-content">'+
-      '<div class="amount hidden">'+
-      '<span class="current-amount">'+response.amountPerDay+'</span>'+
-      '<span class="total-amount">'+"/"+response.totalAmount+'</span>'+
+
+      $('<div class="demo-card-square mdl-card mdl-shadow--2dp">')
+      .append('<div class="mdl-card__title mdl-card--expand">'+
+      '<div class="header_text">'+
+      '<h2 class="mdl-card__title-text">' + response.name + '</h2>'+
       '</div>'+
-      '<i class="material-icons mdl-list__item-avatar">'+
-      '<i class="material-icons pill-icon">pie_chart</i></i>'+
-      '<span id="name">' + response.name + '</span>'+
-      '<span id="description-short" class="mdl-list__item-text-body">' + response.description + '</span>')
-      .append('</span>')
-      .append('</li>')
+      '</div>'+
+
+      '<div class="mdl-card__supporting-text">' + response.description + '</div>')
+      .append('<div class="mdl-card__actions mdl-card--border">'+
+      '<table class="responsive mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">'+
+      '<thead>'+
+      '<tr>'+
+      '<th class="mdl-data-table__cell--non-numeric">Per day</th>'+
+      '<th>Total</th>'+
+      '<th>Amount left</th>'+
+      '</tr>'+
+      '</thead>'+
+      '<tbody>'+
+      '<tr>'+
+      '<td class="mdl-data-table__cell--non-numeric">'+ response.amountPerDay + '</td>'+
+      '<td class="mdl-data-table__cell--non-numeric">'+ response.totalAmount + '</td>'+
+      '<td class="mdl-data-table__cell--non-numeric">'+ response.amount + '</td>'+
+      '</tr>'+
+      '</tbody>'+
+      '</table>')
+      .append('</div>')
+      .append('<div class="mdl-card__actions mdl-card--border">'+
+      '<a class="mdl-list__item-secondary-action active" onclick="reset()" ><i class="material-icons arrow-icon-back">keyboard_arrow_left</i></a>'+
+      '<button class="delete mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent show-modal" >Delete</button>'+
+      '<dialog class="mdl-dialog">'+
+      '<div class="mdl-dialog__content">'+
+      '<p>Are you sure you want to delete "'+response.name+'"?</p>'+
+      '</div>'+
+      '<div class="mdl-dialog__actions mdl-dialog__actions--full-width">'+
+      '<button type="button" class="mdl-button" id="'+response.id+'" onclick="deleteMedicine(this.id)">Yes</button>'+
+      '<button type="button" class="mdl-button close">Cancel</button>'+
+      '</div>'+
+      '</dialog>'+
+      '<script>'+
+      'var dialog = document.querySelector("dialog");'+
+      'var showModalButton = document.querySelector(".show-modal");'+
+       'if (! dialog.showModal) {'+
+         'dialogPolyfill.registerDialog(dialog);}'+
+       'showModalButton.addEventListener("click", function() {'+
+         'dialog.showModal();'+
+       '});'+
+       'dialog.querySelector(".close").addEventListener("click", function() {'+
+         'dialog.close();'+
+       '});'+
+      '</script>'+
+      '<button class="update mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Update</button>')
+        .append('</div>')
+  .append('</div>')
       .appendTo('#medicineinfo');
+
    }
 }
 }
 
+function deleteMedicine(result){
+  dpd.medicines.del(result, function (err) {
+    location.reload();
+  if(err) console.log(err);
+});
 
+}
 
 
 // function loadMoreInfo(test){

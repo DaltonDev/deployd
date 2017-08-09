@@ -40,6 +40,14 @@
 			"required": false,
 			"id": "totalAmount",
 			"order": 4
+		},
+		"pickupsLeft": {
+			"name": "pickupsLeft",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "pickupsLeft",
+			"order": 5
 		}
 	}
 }
