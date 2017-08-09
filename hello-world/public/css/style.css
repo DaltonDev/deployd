@@ -110,6 +110,16 @@ button.update{
   max-height: 100px;
   overflow-y: scroll;
 }
+#medicine-update-form{
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  background: white;
+  left: 0;
+  height: 304px;
+  overflow-x: auto;
+}
 .mdl-mini-footer{
   position: relative;
   bottom: 0;

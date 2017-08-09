@@ -84,6 +84,7 @@ $(document).ready(function() {
 
 //onclick="loadMoreInfo()"
 <!-- -->
+
 });
 
 function reset(result){
@@ -159,13 +160,41 @@ $( "#medicines" ).toggleClass( "slide_out");
          'dialog.close();'+
        '});'+
       '</script>'+
-      '<button class="update mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Update</button>')
+      '<button id="updater" class="update mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="myMove()">Update</button>'+
+      '<div class="medicine-update-form-wrapper">'+
+      '<form id="medicine-update-form">'+
+      '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded" data-upgraded=",MaterialTextfield">Name'+
+      '<input class="mdl-textfield__input" type="text" id="named" Placeholder="'+response.name+'">'+
+      '<label class="mdl-textfield__label" for="named"></label>'+
+      '</div>'+
+      '<div class="mdl-textfield mdl-js-textfield">Description'+
+      '<textarea class="mdl-textfield__input" type="text" rows= "3" id="descriptions" >'+response.description+'</textarea>'+
+      '<label class="mdl-textfield__label" for="descriptions"></label>'+
+      '</div>'+
+      '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">Amount'+
+      '<input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="amounts" Placeholder="'+response.amount+'">'+
+      '<label class="mdl-textfield__label" for="amounts"></label>'+
+      '<span class="mdl-textfield__error">Input is not a number!</span>'+
+      '</div>'+
+      '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">Amount per day'+
+      '<input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="perday" Placeholder="'+response.amountPerDay+'">'+
+      '<label class="mdl-textfield__label" for="perday"></label>'+
+      '<span class="mdl-textfield__error">Input is not a number!</span>'+
+      '</div>'+
+      '<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" type="submit" id="'+response.id+'" onclick="updateMedicine(this.id)">Submit</button>'+
+      '</form>'+
+      '</div>'
+    )
         .append('</div>')
   .append('</div>')
       .appendTo('#medicineinfo');
 
    }
 }
+}
+
+function myMove() {
+      $("#medicine-update-form").fadeToggle();
 }
 
 function deleteMedicine(result){
@@ -176,6 +205,18 @@ function deleteMedicine(result){
 
 }
 
+function updateMedicine(result){
+  var named = $('#named').val();
+  var descriptions  = $('#descriptions').val();
+  var amounts = parseInt($('#amounts').val());
+  var perday = parseInt($('#perday').val());
+  //Placeholder until update function works
+  var totalAmounts  = amounts;
+  dpd.medicines.put(result, {"name": named,"description":descriptions,"amount":amounts,"amountPerDay":perday,"totalAmount":amounts}, function(result, err) {
+  if(err) return console.log(err);
+  console.log(result, result.id);
+});
+}
 
 // function loadMoreInfo(test){
 //   dpd.medicines.get(test, function (result) {
