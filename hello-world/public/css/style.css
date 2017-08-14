@@ -117,8 +117,26 @@ button.update{
   top: 0;
   background: white;
   left: 0;
-  height: 304px;
+  /*height: 304px;*/
+  height: 100%;
   overflow-x: auto;
+}
+.mdl-textfield.mdl-js-textfield{
+  margin-left: 10px;
+}
+#medicine-update-form .mdl-button{
+  margin: 0 0 10px 10px;
+}
+#close-form{
+  display: none;
+  position: absolute;
+  z-index: 20;
+  right: 0;
+  top: 0;
+  min-width: 35px;
+  width: 35px;
+  padding: 0;
+  margin-right: 10px;
 }
 .mdl-mini-footer{
   position: relative;

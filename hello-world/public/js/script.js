@@ -162,6 +162,7 @@ $( "#medicines" ).toggleClass( "slide_out");
       '</script>'+
       '<button id="updater" class="update mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="myMove()">Update</button>'+
       '<div class="medicine-update-form-wrapper">'+
+      '<button id="close-form" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="myMove2()"><i class="material-icons">clear</i></button>'+
       '<form id="medicine-update-form">'+
       '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded" data-upgraded=",MaterialTextfield">Name'+
       '<input class="mdl-textfield__input" type="text" id="named" Placeholder="'+response.name+'">'+
@@ -194,8 +195,14 @@ $( "#medicines" ).toggleClass( "slide_out");
 }
 
 function myMove() {
-      $("#medicine-update-form").fadeToggle();
+      $("#medicine-update-form").fadeIn("slow");
+      $("#close-form").fadeIn("slow");
 }
+function myMove2() {
+      $("#medicine-update-form").fadeOut("slow");
+      $("#close-form").fadeOut("slow");
+}
+
 
 function deleteMedicine(result){
   dpd.medicines.del(result, function (err) {
