@@ -24,13 +24,13 @@ $(document).ready(function() {
       var amounts = parseInt($('#amounts').val());
       var perday = parseInt($('#perday').val());
       //Placeholder until update function works
-      var totalAmounts  = amounts;
+    //  var totalAmounts  = amounts;
       // var reminder = $('#reminder').val();
       //var frequency  = $('#frequency').val();
       dpd.medicines.post({
           "name": named,
           "description": descriptions,
-          "totalAmount": totalAmounts,
+        //  "totalAmount": totalAmounts,
           "amount": amounts,
           //"frequency": frequency,
           // "reminder": reminder,
@@ -54,11 +54,13 @@ $(document).ready(function() {
   loadMedicines();
 
     function addMedicines(medicines) {
+
+          var days = medicines.amount / medicines.amountPerDay;
+
             $('<li class="name mdl-list__item mdl-list__item--three-line">')
             .append('<span class="mdl-list__item-primary-content">'+
             '<div class="amount">'+
-            '<span class="current-amount">'+medicines.amountPerDay+'</span>'+
-            '<span class="total-amount">'+"/"+medicines.totalAmount+'</span>'+
+            '<span class="current-amount">'+days+'</span>'+
             '</div>'+
             '<i class="material-icons mdl-list__item-avatar">'+
             '<i class="material-icons pill-icon">pie_chart</i></i>'+
@@ -66,7 +68,7 @@ $(document).ready(function() {
             '<span id="description-short" class="mdl-list__item-text-body">' + medicines.description + '</span>')
             .append('</span>')
             .append('<span class="mdl-list__item-secondary-content">'+
-            '<a class="mdl-list__item-secondary-action active" id="'+medicines.id+'" onclick="loadMoreInfo(this.id)" href="medicines/'+medicines.id+'"  target="iframen"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
+            '<a class="mdl-list__item-secondary-action active" id="'+medicines.id+'" onclick="loadMoreInfo(this.id)"><i class="material-icons arrow-icon">keyboard_arrow_right</i></a>')
             .append('</span>')
             .append('</li>')
             .appendTo('#medicines');
@@ -110,6 +112,8 @@ $( "#medicines" ).toggleClass( "slide_out");
       console.log(response.name);
       console.log(response.id);
 
+        var days = response.amount / response.amountPerDay;
+
       $('<div class="demo-card-square mdl-card mdl-shadow--2dp">')
       .append('<div class="mdl-card__title mdl-card--expand">'+
       '<div class="header_text">'+
@@ -123,15 +127,15 @@ $( "#medicines" ).toggleClass( "slide_out");
       '<thead>'+
       '<tr>'+
       '<th class="mdl-data-table__cell--non-numeric">Per day</th>'+
-      '<th>Total</th>'+
       '<th>Amount left</th>'+
+      '<th># of days</th>'+
       '</tr>'+
       '</thead>'+
       '<tbody>'+
       '<tr>'+
       '<td class="mdl-data-table__cell--non-numeric">'+ response.amountPerDay + '</td>'+
-      '<td class="mdl-data-table__cell--non-numeric">'+ response.totalAmount + '</td>'+
       '<td class="mdl-data-table__cell--non-numeric">'+ response.amount + '</td>'+
+      '<td class="mdl-data-table__cell--non-numeric">'+ days + '</td>'+
       '</tr>'+
       '</tbody>'+
       '</table>')
@@ -160,25 +164,33 @@ $( "#medicines" ).toggleClass( "slide_out");
          'dialog.close();'+
        '});'+
       '</script>'+
+      //Update function
       '<button id="updater" class="update mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="myMove()">Update</button>'+
       '<div class="medicine-update-form-wrapper">'+
       '<button id="close-form" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="myMove2()"><i class="material-icons">clear</i></button>'+
       '<form id="medicine-update-form">'+
       '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded" data-upgraded=",MaterialTextfield">Name'+
-      '<input class="mdl-textfield__input" type="text" id="named" Placeholder="'+response.name+'">'+
+      '<input class="mdl-textfield__input" type="text" id="named" value="'+response.name+'">'+
       '<label class="mdl-textfield__label" for="named"></label>'+
       '</div>'+
       '<div class="mdl-textfield mdl-js-textfield">Description'+
       '<textarea class="mdl-textfield__input" type="text" rows= "3" id="descriptions" >'+response.description+'</textarea>'+
       '<label class="mdl-textfield__label" for="descriptions"></label>'+
       '</div>'+
-      '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">Amount'+
-      '<input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="amounts" Placeholder="'+response.amount+'">'+
+      '<div class="small-fields-wrapper">'+
+      '<div class="small-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">Fill'+
+      '<input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="fill">'+
       '<label class="mdl-textfield__label" for="amounts"></label>'+
       '<span class="mdl-textfield__error">Input is not a number!</span>'+
       '</div>'+
+      '<div class="medium-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">Amount at home'+
+      '<input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="amounts" value="'+response.amount+'">'+
+      '<label class="mdl-textfield__label" for="amounts"></label>'+
+      '<span class="mdl-textfield__error">Input is not a number!</span>'+
+      '</div>'+
+      '</div>'+
       '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">Amount per day'+
-      '<input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="perday" Placeholder="'+response.amountPerDay+'">'+
+      '<input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="perday" Placeholder="'+response.amountPerDay+'" autocomplete="off">'+
       '<label class="mdl-textfield__label" for="perday"></label>'+
       '<span class="mdl-textfield__error">Input is not a number!</span>'+
       '</div>'+
@@ -216,10 +228,11 @@ function updateMedicine(result){
   var named = $('#named').val();
   var descriptions  = $('#descriptions').val();
   var amounts = parseInt($('#amounts').val());
+  var fill = parseInt($('#fill').val());
   var perday = parseInt($('#perday').val());
   //Placeholder until update function works
-  var totalAmounts  = amounts;
-  dpd.medicines.put(result, {"name": named,"description":descriptions,"amount":amounts,"amountPerDay":perday,"totalAmount":amounts}, function(result, err) {
+  amounts  += fill;
+  dpd.medicines.put(result, {"name": named,"description":descriptions,"amount":amounts,"amountPerDay":perday}, function(result, err) {
   if(err) return console.log(err);
   console.log(result, result.id);
 });

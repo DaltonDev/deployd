@@ -34,8 +34,8 @@ button.update{
 }
 .amount{
   position: absolute;
-  left: 5px;
-  bottom: 0;
+  left: 25px;
+  bottom: 5px;
 }
 #description-short{
   overflow: hidden;
@@ -137,6 +137,21 @@ button.update{
   width: 35px;
   padding: 0;
   margin-right: 10px;
+}
+.small-fields-wrapper{
+  max-width: 300px;
+}
+.small-fields-wrapper input#amounts,
+.small-fields-wrapper input#fill{
+  text-align: center;
+}
+.small-field{
+  text-align: center;
+  width: 25%;
+}
+.medium-field{
+  width: 40%;
+  float: right;
 }
 .mdl-mini-footer{
   position: relative;
