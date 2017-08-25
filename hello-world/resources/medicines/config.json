@@ -29,7 +29,7 @@
 			"name": "amountPerDay",
 			"type": "number",
 			"typeLabel": "number",
-			"required": true,
+			"required": false,
 			"id": "amountPerDay",
 			"order": 3
 		},
@@ -48,6 +48,22 @@
 			"required": false,
 			"id": "pickupsLeft",
 			"order": 5
+		},
+		"active": {
+			"name": "active",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "active",
+			"order": 6
+		},
+		"created": {
+			"name": "created",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "created",
+			"order": 7
 		}
 	}
 }

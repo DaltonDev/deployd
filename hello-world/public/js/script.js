@@ -14,8 +14,8 @@ function showError(error) {
 }
 
 
-
 $(document).ready(function() {
+
 
   $('#medicine-form').submit(function() {
       //Get the data from the form
@@ -23,6 +23,9 @@ $(document).ready(function() {
       var descriptions  = $('#descriptions').val();
       var amounts = parseInt($('#amounts').val());
       var perday = parseInt($('#perday').val());
+
+      this.createdDate = new Date().getTime();
+      console.log(this.createdDate);
       //Placeholder until update function works
     //  var totalAmounts  = amounts;
       // var reminder = $('#reminder').val();
@@ -34,9 +37,12 @@ $(document).ready(function() {
           "amount": amounts,
           //"frequency": frequency,
           // "reminder": reminder,
-          "amountPerDay": perday
+          "amountPerDay": perday,
+          "created": 0
         }, function(medicines, error) {
                 if (error) return showError(error);
+
+
       //Clear the form elements
       addMedicines(medicines);
       $('#named').val('');
@@ -52,10 +58,9 @@ $(document).ready(function() {
   });
 
   loadMedicines();
-
     function addMedicines(medicines) {
-
-          var days = medicines.amount / medicines.amountPerDay;
+      var days = medicines.amount / medicines.amountPerDay;
+      var days = Math.floor(days);
 
             $('<li class="name mdl-list__item mdl-list__item--three-line">')
             .append('<span class="mdl-list__item-primary-content">'+
@@ -80,12 +85,10 @@ $(document).ready(function() {
         $('#medicines').empty(); //Empty the list
         medicines.forEach(function(name) { //Loop through the result
             addMedicines(name); //Add it to the DOM.
-        });
+        })
     });
 }
 
-//onclick="loadMoreInfo()"
-<!-- -->
 
 });
 
@@ -94,10 +97,16 @@ function reset(result){
   $( "#medicines" ).toggleClass( "slide_out");
 }
 
+var indexVariable = 0;
+setInterval(function () {
+indexVariable = indexVariable + 1; // SET { 1-360 }
+}, 1000);
+
 function loadMoreInfo(result){
     $('#medicineinfo').empty();
 $( "#medicineinfo" ).toggleClass( "slide_in");
 $( "#medicines" ).toggleClass( "slide_out");
+
 
   var xhr = new XMLHttpRequest();
   xhr.open('GET', "/../medicines/"+result, true);
@@ -112,7 +121,13 @@ $( "#medicines" ).toggleClass( "slide_out");
       console.log(response.name);
       console.log(response.id);
 
+
+
+      console.log(response.created + indexVariable);
+      var testDate = response.amount - indexVariable;
+
         var days = response.amount / response.amountPerDay;
+        var days = Math.floor(days);
 
       $('<div class="demo-card-square mdl-card mdl-shadow--2dp">')
       .append('<div class="mdl-card__title mdl-card--expand">'+
@@ -134,7 +149,7 @@ $( "#medicines" ).toggleClass( "slide_out");
       '<tbody>'+
       '<tr>'+
       '<td class="mdl-data-table__cell--non-numeric">'+ response.amountPerDay + '</td>'+
-      '<td class="mdl-data-table__cell--non-numeric">'+ response.amount + '</td>'+
+      '<td class="mdl-data-table__cell--non-numeric">'+ testDate + '</td>'+
       '<td class="mdl-data-table__cell--non-numeric">'+ days + '</td>'+
       '</tr>'+
       '</tbody>'+
@@ -232,11 +247,27 @@ function updateMedicine(result){
   var perday = parseInt($('#perday').val());
   //Placeholder until update function works
   amounts  += fill;
+
   dpd.medicines.put(result, {"name": named,"description":descriptions,"amount":amounts,"amountPerDay":perday}, function(result, err) {
   if(err) return console.log(err);
   console.log(result, result.id);
 });
 }
+
+//Auto update every day
+// function dailyUpdate(result){
+//   dpd.medicines.get(function(medicines, error) { //Use dpd.js to access the API
+//       medicines.forEach(function(name) { //Loop through the result
+//           medicines.id = this.id; //Add it to the DOM.
+//       })
+//   });
+//
+//   var amount = amount--;
+//   dpd.medicines.put(result, {"active": true, "amount": amount}, function(result, error) {
+//   if(err) return console.log(err);
+//   console.log(result, result.id);
+// });
+// }
 
 // function loadMoreInfo(test){
 //   dpd.medicines.get(test, function (result) {
